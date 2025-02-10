@@ -1,4 +1,12 @@
 # Zerobot-Plugin-Secluded
 
-## 🔗 链接
-(Zerobot-Plugin).[https://github.com/FloatTech/ZeroBot-Plugin]
+
+## 用前须知
+#### 起始时间为2025/2/10
+#### 作者Icewater
+#### 永久开源
+## 想法来源
+群友用[Zerobot](https://github.com/FloatTech/ZeroBot-Plugin)的机器人很好玩，于是想在[Secluded](https://github.com/MCSQNXY/Secluded)手写个词库尝试还原
+
+## 行为
+可以**二改**,禁止**倒卖**
