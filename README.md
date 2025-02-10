@@ -1,2 +1,4 @@
 # Zerobot-Plugin-Secluded
-QQ-bot thesaurus
+
+## 🔗链接
+(Zerobot-Plugin)[https://github.com/FloatTech/ZeroBot-Plugin]
