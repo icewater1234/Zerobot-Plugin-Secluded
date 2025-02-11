@@ -1,7 +1,112 @@
 # 功能介绍
-## 当前进度
 
--[x]a
-- [ ] 任务1
--[x] 任务2
-- [ ] 任务3
+<details>
+  <summary>当前进度</summary>
+
+- [ ] chat 基础反应,群空调
+- [ ] chatcount 聊天时长统计
+- [ ] sleepmanage 睡眠小助手
+- [ ] atri atri人格文本回复
+- [ ] job 定时指令触发器
+- [ ] ahsai 声合成（暂不考虑）
+- [ ] aifalse 自检,全局限速
+- [ ] aiwife ai随机生成老婆
+- [ ] alipayvoice 支付宝到账语音
+- [ ] autowithdraw 触发者撤回时也自动撤回
+- [ ] baiduaudit 百度内容审核
+- [ ] base16384 base16384加解密
+- [ ] base64gua 六十四卦加解密
+- [ ] baseamasiro 天降文加解密
+- [ ] bilibili b站生成分享弹幕
+- [ ] bilibilipush b站推送
+- [ ] bookreview 哀伤磨刀推书书评
+- [ ] chess 国际象棋
+- [ ] choose 选择困难症帮手
+- [ ] chouxianghua 翻译为抽象话
+- [ ] chrev 英文字符翻转
+- [ ] coser 三次元coser
+- [ ] cpstory cp短打
+- [ ] dailynews 今日早报
+- [ ] danbooru 二次元图片标签识别
+- [ ] diana 嘉然相关
+- [ ] dish 程序员做饭指南
+- [ ] drawlots 多功能抽签
+- [ ] driftbottle 漂流瓶
+- [ ] emoji 合成emoji
+- [ ] emozi 感文字抽象转写
+- [ ] event 好友申请和群聊邀请事件处理
+- [ ] font 渲染任意文字到图片
+- [ ] fortune 每日运势
+- [ ] funny 讲个笑话
+- [ ] genshin 原神模拟抽卡
+- [ ] gif 制图
+- [ ] github GitHub仓库搜索
+- [ ] guessmusic 猜歌插件
+- [ ] hitokoto 一言
+- [ ] hs 炉石搜卡
+- [ ] hyaku 百人一首
+- [ ] inject 注入指令
+- [ ] janadan 煎蛋网无聊图
+- [ ] jptingroom 日语听力学习材料
+- [ ] kfcrazythursday 疯狂星期四
+- [ ] lolicon 随机图片
+- [ ] lolimi 叠带云 API
+- [ ] magicprompt MagicPrompt-Stable-Diffusion吟唱提示
+- [ ] mcfish 钓鱼
+- [ ] midicreate midi音乐制作
+- [ ] moyu 摸鱼提醒
+- [ ] moyucalendar 摸鱼人日历
+- [ ] music 点歌
+- [ ] nativesetu 本地涩图
+- [ ] nbnhhsh 拼音首字母释义工具
+- [ ] nihongo 日语学习
+- [ ] novel 追更小说网搜索
+- [ ] nsfw nsfw图片识别
+- [ ] nsfwauto nsfw图片自动识别
+- [ ] nwife 本地老婆
+- [ ] omikuji 浅草寺求签
+- [ ] poker 抽扑克牌
+- [ ] qqwife 一群一天一夫一妻制群老婆
+- [ ] qzone QQ空间表白墙
+- [ ] realcugan Real-CuGAN清晰术
+- [ ] reborn 投胎模拟器
+- [ ] robbery 打劫别人的钱包
+- [ ] runcode 在线代码运行
+- [ ] saucenao 以图搜图
+- [ ] score 签到
+- [ ] setuime 涩图
+- [ ] shadio 沙雕app
+- [ ] shindan 神丹测定
+- [ ] steam steam相关插件
+- [ ] tiangou 舔狗日记
+- [ ] tracememe 以图搜图
+- [ ] translation 单词翻译
+- [ ] wallet 钱包
+- [ ] wantquotes 摇意查句
+- [ ] warframeapi 星际战甲
+- [ ] wenxinvilg 文心AI画画
+- [ ] wenxinmodai 文心AI文本处理
+- [ ] wife 从老婆库抽每日老婆
+- [ ] wordcount 聊天热词
+- [ ] wordle 猜单词
+- [ ] ygocdb 游戏王卡牌API
+- [ ] ygotrade 游戏王卡片查询
+- [ ] ymgal 月姬galgame相关
+- [ ] yujin 遇见API
+- [ ] cybercat 云养猫
+- [ ] draw 服务详情
+- [ ] gamesystem 游戏系统
+- [ ] tool 同机查询
+- [ ] ping ping
+- [ ] roulette 轮盘赌
+- [ ] truthordare 真心话大冒险
+- [ ] vtbwife 抽vtb老婆
+- [ ] ghrepo GitHub仓库链接解析
+- [ ] feifeilv 可能擦用
+- [ ] DataSystem 公用数据管理
+- [ ] tupian 图片
+- [ ] curse 骂人反击
+- [ ] thesaurus 词典匹配回复
+- [ ] breakrepeat 打断复读
+
+</details>
