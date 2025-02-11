@@ -12,7 +12,7 @@
 - [ ] aifalse 自检,全局限速
 - [ ] aiwife ai随机生成老婆
 - [ ] alipayvoice 支付宝到账语音
-- [ ] autowithdraw 触发者撤回时也自动撤回
+- [x] autowithdraw 触发者撤回时也自动撤回
 - [ ] baiduaudit 百度内容审核
 - [ ] base16384 base16384加解密
 - [ ] base64gua 六十四卦加解密

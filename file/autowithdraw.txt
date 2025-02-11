@@ -1,0 +1,22 @@
+[好友消息]撤回
+m:$读 awd.txt %QQ%%MsgId% 无$
+如果:%m%==无
+返回
+如果尾
+$撤回 %m%$
+
+
+[群聊消息]撤回
+m:$读 awd.txt %群号%%MsgId% 无$
+如果:%m%==无
+返回
+如果尾
+$撤回 %m%$
+
+.*
+如果:%QQ%==%Robot%&$存在 %MSG% Reply$
+如果:$群聊消息$
+$写 awd.txt %群号%%Reply% %MsgId%$
+返回
+如果尾
+$写 awd.txt %QQ%%Reply% %MsgId%$
