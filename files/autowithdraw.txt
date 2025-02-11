@@ -1,0 +1,12 @@
+[群聊消息]撤回
+m:$读 awd.txt %MsgId% 无$
+如果:%m%==无
+返回
+如果尾
+$蓝色日志 由于%MsgId%被撤回，相对应的撤回%m%$
+$撤回 %m%$
+
+[\s\S]*
+如果:%QQ%==%Robot%&$存在 %MSG% Reply$
+$蓝色日志 已记录消息%MsgId%对应%Reply%$
+$写 awd.txt %Reply% %MsgId%$
