@@ -9,8 +9,8 @@
 适当增强/优化一些功能
 
 ## 说明
-- (Secluded授权限制)[https://github.com/icewater1234/Zerobot-Plugin-Secluded/blob/main/Limit.md]
-- (词库功能)[https://github.com/icewater1234/Zerobot-Plugin-Secluded/blob/main/Features.md]
+- [Secluded授权限制](https://github.com/icewater1234/Zerobot-Plugin-Secluded/blob/main/Limit.md)
+- [词库功能](https://github.com/icewater1234/Zerobot-Plugin-Secluded/blob/main/Features.md)
 
 
 ## 行为
