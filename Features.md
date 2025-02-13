@@ -66,7 +66,7 @@
 - [ ] [nwife 本地老婆](https://github.com/icewater1234/Zerobot-Plugin-Secluded/blob/main/files/nwife.txt)
 - [ ] [omikuji 浅草寺求签](https://github.com/icewater1234/Zerobot-Plugin-Secluded/blob/main/files/omikuji.txt)
 - [ ] [poker 抽扑克牌](https://github.com/icewater1234/Zerobot-Plugin-Secluded/blob/main/files/poker.txt)
-- [ ] [qqwife 一群一天一夫一妻制群老婆](https://github.com/icewater1234/Zerobot-Plugin-Secluded/blob/main/files/qqwife.txt)
+- [x] [qqwife 一群一天一夫一妻制群老婆](https://github.com/icewater1234/Zerobot-Plugin-Secluded/blob/main/files/qqwife.txt)
 - [ ] [qzone QQ空间表白墙](https://github.com/icewater1234/Zerobot-Plugin-Secluded/blob/main/files/qzone.txt)
 - [ ] [realcugan Real-CuGAN清晰术](https://github.com/icewater1234/Zerobot-Plugin-Secluded/blob/main/files/realcugan.txt)
 - [ ] [reborn 投胎模拟器](https://github.com/icewater1234/Zerobot-Plugin-Secluded/blob/main/files/reborn.txt)
