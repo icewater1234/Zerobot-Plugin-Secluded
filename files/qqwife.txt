@@ -30,6 +30,12 @@ L:$GetMsgSize A Uin$
 S:$随机数 1 %L%$
 Q:$GetMsg A [%S%-1] Uin$
 N:$GetMsg A [%S%-1] UinName$
+w:$读 qqwife/%群号% %Q% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
+如果:@w[status]!=无
+没有娶到捏\r
+再试试吧
+返回
+如果尾
 如果:%N%==
 N:$GetMsg A [%S%-1] Nick$
 $标签跳转 qqy$
@@ -38,11 +44,13 @@ $标签跳转 qqy$
 :qqy
 $艾特 %QQ% %昵称%$
 如果:%Q%==%QQ%
+$蓝色日志 娶到自己了$
 娶到自己啦\r
 获得成就[自恋狂]\r
 (本次不计入CD)
 返回
 如果尾
+$蓝色日志 娶到对象了$
 今天你的群老婆是
 $图片 https://q4.qlogo.cn/g?b=qq&nk=%Q%&s=5$\r
 %N%(%Q%)
@@ -59,10 +67,12 @@ $变量 cd %t%$
 t:@Q[times]
 t:[%时间戳秒%-%t%]
 如果:%t%<%cd%
+$蓝色日志 心急$
 你的CD正在冷却...
 返回
 如果尾
 如果:@Q[status]==主
+$蓝色日志 离婚成功$
 离婚成功力\r
 天涯何处无芳草，何必单恋一枝花？不如再摘一支（bushi
 $写 qqwife/%群号% %QQ% {"date":"","time":"","times":"%t%","status":"无","qq":"","nc":"","self":""}$
@@ -70,12 +80,14 @@ $写 qqwife/%群号% @Q[qq] {"date":"","time":"","times":"0","status":"无","qq"
 返回
 如果尾
 如果:@Q[status]==被
+$蓝色日志 离婚成功$
 离婚成功力\r
 话说你不考虑当个1？
 $写 qqwife/%群号% %QQ% {"date":"","time":"","times":"%t%","status":"无","qq":"","nc":"","self":""}$
 $写 qqwife/%群号% @Q[qq] {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
 返回
 如果尾
+$蓝色日志 以为自己结婚了$
 今天你还没结婚哦
 
 (娶|嫁)@.*
@@ -89,6 +101,7 @@ s:娶
 Q:$读 qqwife/%群号% %QQ% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
 q:$读 qqwife/%群号% %AT0% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
 如果:$读 qqwife/设置/%群号% freelove 允许$==禁止
+$蓝色日志 自由恋爱失败$
 返回
 如果尾
 $回复 %MsgId%$
@@ -198,6 +211,46 @@ $写 qqwife/%群号% @Q[qq] {"date":"","time":"","times":"","status":"","qq":"",
 当小三失败惹...\r
 为什么不正常娶一个呢
 
+做媒@.* @.*
+如果:%QQ%==%Robot%
+返回
+如果尾
+主:$读 基础设置 主人 1480459201$
+如果:$存在 %主% %QQ%$==false||$读 地位.txt %QQ% 0$==0||$管理员 %群号% %QQ%$==0
+返回
+如果尾
+$回复 %MsgId%$
+Q:$读 qqwife/%群号% %AT0% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
+q:$读 qqwife/%群号% %AT1% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
+如果:@Q[status]!=无
+如果:@q[status]!=无
+六百六十六你欲想拆散两位的姻缘
+返回
+如果尾
+坏家伙想要拆散%AtName0%(%AT0%)和@Q[nc](@Q[qq])的关系
+返回
+如果尾
+如果:@q[status]!=无
+坏家伙想要拆散%AtName1%(%AT1%)和@q[nc](@q[qq])的关系
+返回
+如果尾
+c:$随机数 1 5$
+如果:%c%==3
+做媒成功啦恭喜新夫妻\r
+同时恭喜%AtName0%(%AT0%)\r
+娶到%AtName1%(%AT1%)
+$写 qqwife/%群号% %AT0% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","times":"@Q[times]","status":"主","qq":"%AT1%","nc":"%AtName1%","self":"娶"}$
+$写 qqwife/%群号% %AT1% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","times":"@q[times]","status":"被","qq":"%AT0%","nc":"%AtName0%","self":"嫁"}$
+返回
+如果尾
+失败惹...\r
+再试试吧?
+
+
+
+
+
+
 //设置
 //
 
@@ -232,6 +285,9 @@ $回复 %MsgId%$
 $写 qqwife/设置/%群号% ntr %括号1%$
 
 重置花名册
+如果:%QQ%==%Robot%
+返回
+如果尾
 主:$读 基础设置 主人 1480459201$
 如果:$存在 %主% %QQ%$||$读 地位.txt %QQ% 0$==1
 $回复 %MsgId%$
@@ -240,6 +296,9 @@ $配置文件 qqwife/%群号% 清空$
 
 
 重置所有花名册
+如果:%QQ%==%Robot%
+返回
+如果尾
 主:$读 基础设置 主人 1480459201$
 如果:$存在 %主% %QQ%$||$读 地位.txt %QQ% 0$==1
 $回复 %MsgId%$
@@ -257,6 +316,4 @@ $配置文件 qqwife/%Q% 清空$
 $标签跳转 abc$
 $删除 qqwife$ 
 
-测试
-$GroupMemberListGet %群号% Refresh A$
-$蓝色日志 \r\r\r\r\r%A%$
+
