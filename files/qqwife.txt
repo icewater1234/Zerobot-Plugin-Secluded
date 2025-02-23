@@ -1,37 +1,54 @@
 娶群友
 $回复 %MsgId%$
-Q:$读 qqwife/%群号% %QQ% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
+Q:$读 qqwife/群/%群号% %QQ% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
 如果:@Q[date]==%时间MMdd%
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%想娶老婆但是已是有对象之人$
 如果:@Q[status]==主
 $艾特 %QQ% %昵称%$
 今天你在@Q[time]娶了群友
 q:@Q[qq]
 $图片 https://q4.qlogo.cn/g?b=qq&nk=%q%&s=5$\r
-[@Q[nc]](%q%)
+[$群聊成员昵称 %群号% %q%$](%q%)
 返回
 如果尾
 $艾特 %QQ% %昵称%$
 今天你在@Q[time]被群友娶了
 q:@Q[qq]
 $图片 https://q4.qlogo.cn/g?b=qq&nk=%q%&s=5$\r
-[@Q[nc]]%q%
+[$群聊成员昵称 %群号% %q%$](%q%)
 返回
 如果尾
 t:$读 qqwife/设置/%群号% cd 3600$
 $变量 cd %t%$
 t:@Q[times]
-t:[%时间戳秒%-%t%]
+t:[%时间戳秒%-%cd%]
 如果:%t%<%cd%
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%想娶老婆但是cd正在冷却$
 你的CD正在冷却...
 返回
 如果尾
+如果:$读 qqwife/设置/%群号% ing false$==true
+别急,民政局门口排长队啦!
+返回
+如果尾
+c:0
+:reqqy
 $GroupMemberListGet %群号% Refresh A$
 L:$GetMsgSize A Uin$
 S:$随机数 1 %L%$
-Q:$GetMsg A [%S%-1] Uin$
+q:$GetMsg A [%S%-1] Uin$
 N:$GetMsg A [%S%-1] UinName$
-w:$读 qqwife/%群号% %Q% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
+w:$读 qqwife/群/%群号% %q% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
 如果:@w[status]!=无
+$写 qqwife/设置/%群号% ing true$
+$配置文件 qqwife/设置/%群号% 保存$
+如果:%c%<=5
+c:[%c%]+1
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%想娶老婆但是娶到有对象的人了,重新娶中\r重试次数:%c%/5$
+$标签跳转 reqqy$
+返回
+如果尾
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%想娶老婆但是重试5次未娶到\r返回未娶到$
 没有娶到捏\r
 再试试吧
 返回
@@ -43,51 +60,72 @@ $标签跳转 qqy$
 如果尾
 :qqy
 $艾特 %QQ% %昵称%$
-如果:%Q%==%QQ%
-$蓝色日志 娶到自己了$
+如果:%q%==%QQ%
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%娶对象娶到自己了$
 娶到自己啦\r
 获得成就[自恋狂]\r
 (本次不计入CD)
 返回
 如果尾
-$蓝色日志 娶到对象了$
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%娶到对象\r%q%了$
 今天你的群老婆是
-$图片 https://q4.qlogo.cn/g?b=qq&nk=%Q%&s=5$\r
-%N%(%Q%)
+$图片 https://q4.qlogo.cn/g?b=qq&nk=%q%&s=5$\r
+[%N%](%q%)\r
+甲:$读 qqwife/好感度/%QQ% @Q[qq] 0$
+D:$随机数 1 3$
+D:[%甲%+%D%]
+$写 qqwife/好感度/%QQ% %q% %D%$
+$写 qqwife/好感度/%q% %QQ% %D%$
+当前好感度为[%D%]哒~
 t:$读 qqwife/设置/%群号% cd 3600$
 t:[%t%+%时间戳秒%]
-$写 qqwife/%群号% %QQ% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","times":"%t%","status":"主","qq":"%Q%","nc":"%N%","self":"娶"}$
-$写 qqwife/%群号% %Q% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","times":"0","status":"被","qq":"%QQ%","nc":"%N%","self":"嫁"}$
+$写 qqwife/群/%群号% %QQ% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","times":"%t%","status":"主","qq":"%q%","nc":"%N%","self":"娶"}$
+$写 qqwife/群/%群号% %q% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","times":"0","status":"被","qq":"%QQ%","nc":"%N%","self":"嫁"}$
+$写 qqwife/设置/%群号% ing false$
+$配置文件 qqwife/设置/%群号% 保存$
+如果:$键列表 qqwife/好感度列表/%QQ% 存在 %q%$
+返回
+如果尾
+$键列表 qqwife/好感度/键/%QQ% 添加 %q%$
+$键列表 qqwife/好感度/键/%q% 添加 %QQ%$
 
 闹离婚
-Q:$读 qqwife/%群号% %QQ% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
+Q:$读 qqwife/群/%群号% %QQ% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
 $回复 %MsgId%$
 t:$读 qqwife/设置/%群号% cd 3600$
 $变量 cd %t%$
 t:@Q[times]
-t:[%时间戳秒%-%t%]
+t:[%时间戳秒%-%cd%]
 如果:%t%<%cd%
-$蓝色日志 心急$
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%想离婚但是cd正在冷却$
 你的CD正在冷却...
 返回
 如果尾
+如果:$读 qqwife/设置/%群号% ing false$==true
+别急,民政局门口排长队啦!
+返回
+如果尾
+$写 qqwife/设置/%群号% ing true$
+$配置文件 qqwife/设置/%群号% 保存$
 如果:@Q[status]==主
-$蓝色日志 离婚成功$
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%离婚成功\r离婚对象:@Q[qq]$
 离婚成功力\r
 天涯何处无芳草，何必单恋一枝花？不如再摘一支（bushi
-$写 qqwife/%群号% %QQ% {"date":"","time":"","times":"%t%","status":"无","qq":"","nc":"","self":""}$
-$写 qqwife/%群号% @Q[qq] {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
+$写 qqwife/群/%群号% %QQ% {"date":"","time":"","times":"%t%","status":"无","qq":"","nc":"","self":""}$
+$写 qqwife/群/%群号% @Q[qq] {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
+$写 qqwife/设置/%群号% ing false$
 返回
 如果尾
 如果:@Q[status]==被
 $蓝色日志 离婚成功$
 离婚成功力\r
 话说你不考虑当个1？
-$写 qqwife/%群号% %QQ% {"date":"","time":"","times":"%t%","status":"无","qq":"","nc":"","self":""}$
-$写 qqwife/%群号% @Q[qq] {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
+$写 qqwife/群/%群号% %QQ% {"date":"","time":"","times":"%t%","status":"无","qq":"","nc":"","self":""}$
+$写 qqwife/群/%群号% @Q[qq] {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
+$写 qqwife/设置/%群号% ing false$
 返回
 如果尾
-$蓝色日志 以为自己结婚了$
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%还没结婚就想离婚$
 今天你还没结婚哦
 
 (娶|嫁)@.*
@@ -98,19 +136,23 @@ $标签跳转 freelove$
 如果尾
 s:娶
 :freelove
-Q:$读 qqwife/%群号% %QQ% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
-q:$读 qqwife/%群号% %AT0% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
+Q:$读 qqwife/群/%群号% %QQ% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
+q:$读 qqwife/群/%群号% %AT0% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
 如果:$读 qqwife/设置/%群号% freelove 允许$==禁止
-$蓝色日志 自由恋爱失败$
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%想自由恋爱\r但是%群号%未允许自由恋爱$
 返回
 如果尾
 $回复 %MsgId%$
 t:$读 qqwife/设置/%群号% cd 3600$
 $变量 cd %t%$
 t:@Q[times]
-t:[%时间戳秒%-%t%]
+t:[%时间戳秒%-%cd%]
 如果:%t%<%cd%
 你的CD正在冷却...
+返回
+如果尾
+如果:$读 qqwife/设置/%群号% ing false$==true
+别急,民政局门口排长队啦!
 返回
 如果尾
 如果:%AT0%==%QQ%
@@ -118,26 +160,31 @@ t:[%时间戳秒%-%t%]
 (本次不计入CD)
 返回
 如果尾
+$写 qqwife/设置/%群号% ing true$
+$配置文件 qqwife/设置/%群号% 保存$
 如果:@Q[date]==%时间MMdd%
 如果:@Q[status]==主
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%想%括号1%%AT0%但是自己娶别人了$
 $艾特 %QQ% %昵称%$
 今天你在@Q[time]娶了群友
 q:@Q[qq]
 $图片 https://q4.qlogo.cn/g?b=qq&nk=%q%&s=5$\r
-[@Q[nc]](%q%)
+[$群聊成员昵称 %群号% %q%$](%q%)
 返回
 如果尾
 如果:@Q[status]==被
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%想%括号1%%AT0%但是自己被娶了$
 $艾特 %QQ% %昵称%$
 今天你在@Q[time]被群友娶了
 q:@Q[qq]
 $图片 https://q4.qlogo.cn/g?b=qq&nk=%q%&s=5$\r
-[@Q[nc]]%q%
+[$群聊成员昵称 %群号% %q%$](%q%)
 返回
 如果尾
 返回
 如果尾
 如果:@q[status]!=无
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%想娶%AT0%\r但是%AT0%是有对象的人了$
 对方已经成家啦,换个目标吧
 返回
 如果尾
@@ -145,23 +192,39 @@ t:$读 qqwife/设置/%群号% cd 3600$
 t:[%时间戳秒%+%t%]
 c:$随机数 1 5$
 如果:%c%==3
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%想娶%AT0%成功了$
 (´･ω･`)对方答应了你 并表示愿意当今天的CP\r
 $艾特 %QQ% %昵称%$
 今天你的群对象是\r
 $图片 https://q4.qlogo.cn/g?b=qq&nk=%AT0%&s=5$\r
-[%AtName%](%AT0%)
-$写 qqwife/%群号% %QQ% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","times":"%t%","status":"主","qq":"%AT0%","nc":"%AtName%","self":"%括号1%"}$
-$写 qqwife/%群号% %AT0% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","times":"%t%","status":"被","qq":"%QQ%","nc":"%昵称%","self":"%s%"}$
+[%AtName%](%AT0%)\r
+甲:$读 qqwife/好感度/%QQ% @Q[qq] 0$
+D:$随机数 1 3$
+D:[%甲%+%D%]
+$写 qqwife/好感度/%QQ% %AT0% %D%$
+$写 qqwife/好感度/%AT0% %QQ% %D%$
+当前好感度为[%D%]哒~
+$写 qqwife/群/%群号% %QQ% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","times":"%t%","status":"主","qq":"%AT0%","nc":"%AtName%","self":"%括号1%"}$
+$写 qqwife/群/%群号% %AT0% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","times":"%t%","status":"被","qq":"%QQ%","nc":"%昵称%","self":"%s%"}$
+$写 qqwife/设置/%群号% ing false$
+如果:$键列表 qqwife/好感度/键/%QQ% 存在 %q%$
 返回
 如果尾
+$键列表 qqwife/好感度/键/%QQ% 添加 @Q[qq]$
+$键列表 qqwife/好感度/键/@Q[qq] 添加 %QQ%$
+返回
+如果尾
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%想娶%AT0%失败了$
 失败了惹. 摸摸头~
-$写 qqwife/%群号% %QQ% {"date":"","time":"","times":"%t%","status":"无","qq":"","nc":"","self":""}$
+$写 qqwife/设置/%群号% ing false$
+$写 qqwife/群/%群号% %QQ% {"date":"","time":"","times":"%t%","status":"无","qq":"","nc":"","self":""}$
 
 当@.* 的小三
-C:$读 qqwife/%群号% %QQ% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
-Q:$读 qqwife/%群号% %AT0% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
-q:$读 qqwife/%群号% @Q[qq] {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
+C:$读 qqwife/群/%群号% %QQ% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
+Q:$读 qqwife/群/%群号% %AT0% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
+q:$读 qqwife/群/%群号% @Q[qq] {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
 如果:$读 qqwife/设置/%群号% ntr 禁止$==禁止
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%想牛头人\r但是%群号%未允许牛头人$
 返回
 如果尾
 如果:@Q[self]==娶
@@ -175,18 +238,24 @@ $回复 %MsgId%$
 t:$读 qqwife/设置/%群号% cd 3600$
 $变量 cd %t%$
 t:@C[times]
-t:[%时间戳秒%-%t%]
+t:[%时间戳秒%-%cd%]
 如果:%t%<%cd%
 你的CD正在冷却...
 返回
 如果尾
+如果:$读 qqwife/设置/%群号% ing false$==true
+别急,民政局门口排长队啦!
+返回
+如果尾
 如果:%AT0%==%QQ%||@C[status]!=无
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%想当自己的小三$
 获得成就[自己绿自己~]\r
 (本次不计入CD)
 返回
 如果尾
 如果:@Q[status]==无
-$写 qqwife/%群号% %QQ% {"date":"","time":"","times":"%t%","status":"无","qq":"","nc":"","self":""}$
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%想当%AT0%的小三\r但是%AT0%是单身$
+$写 qqwife/群/%群号% %QQ% {"date":"","time":"","times":"%t%","status":"无","qq":"","nc":"","self":""}$
 如果:$读 qqwife/设置/%群号% freelove 允许$==允许
 对方还是单身捏,尝试娶一下吧
 返回
@@ -198,16 +267,38 @@ t:$读 qqwife/设置/%群号% cd 3600$
 t:[%时间戳秒%+%t%]
 c:$随机数 1 5$
 如果:%c%==3
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%成功当上%AT0%的小三$
 成功当上%AT0%的小三\r
 $艾特 %QQ% %昵称%$
 今天你的群对象是\r
 $图片 https://q4.qlogo.cn/g?b=qq&nk=%AT0%&s=5$\r
-[%AtName%](%AT0%)
-$写 qqwife/%群号% %QQ% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","times":"%t%","status":"主","qq":"%AT0%","nc":"%AtName%","self":"%s%"}$
-$写 qqwife/%群号% %AT0% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","times":"%t%","status":"被","qq":"%QQ%","nc":"%昵称%","self":"@Q[self]"}$
-$写 qqwife/%群号% @Q[qq] {"date":"","time":"","times":"","status":"","qq":"","nc":"","self":""}$
+[%AtName%](%AT0%)\r\r
+c:$随机数 1 3$
+如果:%c%==1
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%当小三被发现了\r%QQ%\r%AT0%\r@Q[qq]\r三者好感度相互清空$
+由于当小三被发现了,三者的好感度都清空了......
+$写 qqwife/好感度/%AT0% %QQ% 0$
+$写 qqwife/好感度/%QQ% %AT0% 0$
+$写 qqwife/好感度/@Q[qq] %AT0% 0$
+$写 qqwife/好感度/%AT0% @Q[qq] 0$
+$写 qqwife/好感度/@Q[qq] %QQ% 0$
+$写 qqwife/好感度/%QQ% @Q[qq] 0$
+$键列表 qqwife/好感度/键/%QQ% 删除 %AT0%$
+$键列表 qqwife/好感度/键/%QQ% 删除 @Q[qq]$
+$键列表 qqwife/好感度/键/@Q[qq] 删除 %QQ%$
+$键列表 qqwife/好感度/键/@Q[qq] 删除 %AT0%$
+$键列表 qqwife/好感度/键/%AT0% 删除 @Q[qq]$
+$键列表 qqwife/好感度/键/%AT0% 删除 %QQ%$
 返回
 如果尾
+返回
+如果尾
+$写 qqwife/群/%群号% %QQ% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","times":"%t%","status":"主","qq":"%AT0%","nc":"%AtName%","self":"%s%"}$
+$写 qqwife/群/%群号% %AT0% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","times":"%t%","status":"被","qq":"%QQ%","nc":"%昵称%","self":"@Q[self]"}$
+$写 qqwife/群/%群号% @Q[qq] {"date":"","time":"","times":"","status":"","qq":"","nc":"","self":""}$
+返回
+如果尾
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%想当%AT0%的小三失败了$
 当小三失败惹...\r
 为什么不正常娶一个呢
 
@@ -220,29 +311,47 @@ $写 qqwife/%群号% @Q[qq] {"date":"","time":"","times":"","status":"","qq":"",
 返回
 如果尾
 $回复 %MsgId%$
-Q:$读 qqwife/%群号% %AT0% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
-q:$读 qqwife/%群号% %AT1% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
+如果:$读 qqwife/设置/%群号% ing false$==true
+别急,民政局门口排长队啦!
+返回
+如果尾
+Q:$读 qqwife/群/%群号% %AT0% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
+q:$读 qqwife/群/%群号% %AT1% {"date":"","time":"","times":"0","status":"无","qq":"","nc":"","self":""}$
 如果:@Q[status]!=无
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%做媒做到有对象的人$
 如果:@q[status]!=无
 六百六十六你欲想拆散两位的姻缘
 返回
 如果尾
-坏家伙想要拆散%AtName0%(%AT0%)和@Q[nc](@Q[qq])的关系
+坏家伙想要拆散%AtName0%(%AT0%)和[$群聊成员昵称 %群号% @Q[qq]$](@Q[qq])的关系
 返回
 如果尾
 如果:@q[status]!=无
-坏家伙想要拆散%AtName1%(%AT1%)和@q[nc](@q[qq])的关系
+坏家伙想要拆散%AtName1%(%AT1%)和[$群聊成员昵称 %群号% @Q[qq]$](@q[qq])的关系
 返回
 如果尾
 c:$随机数 1 5$
 如果:%c%==3
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%为\r%AT0%\r%AT1%\r做媒成功$
 做媒成功啦恭喜新夫妻\r
 同时恭喜%AtName0%(%AT0%)\r
-娶到%AtName1%(%AT1%)
-$写 qqwife/%群号% %AT0% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","times":"@Q[times]","status":"主","qq":"%AT1%","nc":"%AtName1%","self":"娶"}$
-$写 qqwife/%群号% %AT1% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","times":"@q[times]","status":"被","qq":"%AT0%","nc":"%AtName0%","self":"嫁"}$
+娶到%AtName1%(%AT1%)\r
+甲:$读 qqwife/好感度/%AT0% %AT1% 0$
+D:$随机数 1 3$
+D:[%甲%+%D%]
+$写 qqwife/好感度/%AT0% %AT1% %D%$
+$写 qqwife/好感度/%AT1% %AT0% %D%$
+当前好感度为[%D%]哒~
+$写 qqwife/群/%群号% %AT0% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","times":"@Q[times]","status":"主","qq":"%AT1%","nc":"%AtName1%","self":"娶"}$
+$写 qqwife/群/%群号% %AT1% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","times":"@q[times]","status":"被","qq":"%AT0%","nc":"%AtName0%","self":"嫁"}$
+如果:$键列表 qqwife/好感度/键/%QQ% 存在 %q%$
 返回
 如果尾
+$键列表 qqwife/好感度/键/%QQ% 添加 @Q[qq]$
+$键列表 qqwife/好感度/键/@Q[qq] 添加 %QQ%$
+返回
+如果尾
+$蓝色日志 \r\r[qqwife]\r%群号%的%QQ%为\r%AT0%\r%AT1%\r做媒失败$
 失败惹...\r
 再试试吧?
 
@@ -261,6 +370,7 @@ $写 qqwife/%群号% %AT1% {"date":"%时间MMdd%","time":"%时间HH:mm:ss%","tim
 主:$读 基础设置 主人 1480459201$
 如果:$存在 %主% %QQ%$||$读 地位.txt %QQ% 0$==1||$管理员 %群号% %QQ%$
 $回复 %MsgId%$
+$蓝色日志 \r\r[qqwife]\r%QQ%设置%群号%的cd为%括号3%小时$
 $写 qqwife/设置/%群号% cd [%括号3%*3600]$
 设置成功
 
@@ -271,6 +381,7 @@ $写 qqwife/设置/%群号% cd [%括号3%*3600]$
 主:$读 基础设置 主人 1480459201$
 如果:$存在 %主% %QQ%$||$读 地位.txt %QQ% 0$==1||$管理员 %群号% %QQ%$
 $回复 %MsgId%$
+$蓝色日志 \r\r[qqwife]\r%QQ%发送指令-%括号1%自由恋爱$
 设置成功
 $写 qqwife/设置/%群号% freelove %括号1%$
 
@@ -281,6 +392,7 @@ $写 qqwife/设置/%群号% freelove %括号1%$
 主:$读 基础设置 主人 1480459201$
 如果:$存在 %主% %QQ%$||$读 地位.txt %QQ% 0$==1||$管理员 %群号% %QQ%$
 $回复 %MsgId%$
+$蓝色日志 \r\r[qqwife]\r%QQ%发送指令-%括号1%%括号2%$
 设置成功
 $写 qqwife/设置/%群号% ntr %括号1%$
 
@@ -291,7 +403,8 @@ $写 qqwife/设置/%群号% ntr %括号1%$
 主:$读 基础设置 主人 1480459201$
 如果:$存在 %主% %QQ%$||$读 地位.txt %QQ% 0$==1
 $回复 %MsgId%$
-$配置文件 qqwife/%群号% 清空$
+$蓝色日志 \r\r[qqwife]\r%QQ%发送指令-重置花名册$
+$配置文件 qqwife/群/%群号% 清空$
 已清空本群花名册
 
 
@@ -302,6 +415,7 @@ $配置文件 qqwife/%群号% 清空$
 主:$读 基础设置 主人 1480459201$
 如果:$存在 %主% %QQ%$||$读 地位.txt %QQ% 0$==1
 $回复 %MsgId%$
+$蓝色日志 \r\r[qqwife]\r%QQ%发送指令-重置所有花名册$
 已清空所有群聊花名册
 $GroupListGet A$
 量:$消息数量 A GroupId$
@@ -312,8 +426,49 @@ i:0
 如果尾
 Q:$获取消息 A %i% GroupId$
 i:[%i%+1]
-$配置文件 qqwife/%Q% 清空$
+$配置文件 qqwife/群/%Q% 清空$
+$配置文件 qqwife/群/%Q% 清空$
+$配置文件 qqwife/群/%Q% 清空$
 $标签跳转 abc$
-$删除 qqwife$ 
+
+重置所有配置
+如果:%QQ%==%Robot%
+返回
+如果尾
+主:$读 基础设置 主人 1480459201$
+如果:$存在 %主% %QQ%$||$读 地位.txt %QQ% 0$==1
+$回复 %MsgId%$
+$蓝色日志 \r\r[qqwife]\r%QQ%发送指令-重置所有配置$
+已清空所有配置
+$GroupListGet A$
+量:$消息数量 A GroupId$
+i:0
+:clearqun
+如果:%i%>=%量%
+返回
+如果尾
+Q:$获取消息 A %i% GroupId$
+i:[%i%+1]
+$黄色日志 \r\r[qqwife]\r群%Q%的老婆和设置列表清除$
+$配置文件 qqwife/群/%Q% 清空$
+$配置文件 qqwife/设置/%Q% 清空$
+$GroupMemberListGet %群号% B$
+数:$消息数量 B Uin$
+I:0
+:clear好感
+如果:%I%>=%数%
+$标签跳转 clearqun$
+返回
+如果尾
+q:$获取消息 B %I% Uin$
+I:[%I%+1]
+$黄色日志 \r\r[qqwife]\r群%Q%的%q%好感度清除$
+$配置文件 qqwife/好感度/%q% 清空$
+$键列表 qqwife/好感度/键/%q% 清空$
+$标签跳转 clear好感$
+返回
+如果尾
+返回
+如果尾
 
 
